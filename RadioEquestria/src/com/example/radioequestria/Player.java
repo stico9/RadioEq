@@ -14,7 +14,7 @@ import android.view.View;
 import android.widget.RemoteViews;
 
 public class Player {
-	private static MediaPlayer mp;
+	public static MediaPlayer mp;
 	
 	public static void play(final Context context) throws IllegalArgumentException, SecurityException, IllegalStateException, IOException, Exception{
 		if(mp == null){
@@ -30,7 +30,7 @@ public class Player {
 		AppWidgetManager.getInstance(context).updateAppWidget(new ComponentName(context, Widget_main.class), rm);
 		
     	mp.setAudioStreamType(AudioManager.STREAM_MUSIC);
-		mp.setDataSource("http://s1.slotex.pl:10026/");
+		mp.setDataSource("http://4stream.pl:18328/");
 		mp.setOnErrorListener(new OnErrorListener() {
             public boolean onError(MediaPlayer mp, int what, int extra){
                 mp.release();

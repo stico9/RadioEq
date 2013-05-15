@@ -26,7 +26,7 @@ public class Informations extends AsyncTask<Void, Void, Void>{
 	
 
 
-	String serwer = "http://s1.slotex.pl:10026/";
+	String serwer = "http://4stream.pl:18328/";
 	
 	public Informations(Context context) {
 		this.context = context;
@@ -82,10 +82,11 @@ public class Informations extends AsyncTask<Void, Void, Void>{
 	@Override
 	protected void onPostExecute(Void result) {
 		RemoteViews rm = new RemoteViews(context.getPackageName(), R.layout.widget_main);
+		
+		rm.setTextViewText(R.id.textView2, CurrentInfo.prezenter);
+		rm.setTextViewText(R.id.textView3, CurrentInfo.audycja);
+		rm.setTextViewText(R.id.textView1, CurrentInfo.song);
 		if(CurrentInfo.isChanged()){
-			rm.setTextViewText(R.id.textView2, CurrentInfo.prezenter);
-			rm.setTextViewText(R.id.textView3, CurrentInfo.audycja);
-			rm.setTextViewText(R.id.textView1, CurrentInfo.song);
 			Log.i("WIDGET", "zmieniam...");
 			AppWidgetManager.getInstance(context).updateAppWidget(new ComponentName(context, Widget_main.class), rm);
 		}

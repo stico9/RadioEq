@@ -14,12 +14,14 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
+import android.widget.Toast;
 
 public class Widget_main extends AppWidgetProvider{
 
 	RemoteViews remoteViews;
 	ComponentName thisWidget;
 
+	Timer timer;
 	final MediaPlayer mp = null;
 	static boolean playing = false;
 	public static String PLAY_ACTION = "com.example.radioequestria.PLAY";
@@ -47,6 +49,7 @@ public class Widget_main extends AppWidgetProvider{
 					Player.play(context);
 				} catch (Exception e){
 					Log.w("mp", "EXCEPTION!!" + e.toString());
+					
 					rm.setImageViewResource(R.id.imageButton1, R.drawable.play);
 					playing = false;
 					rm.setViewVisibility(R.id.progressBar1, View.INVISIBLE);
@@ -66,8 +69,22 @@ public class Widget_main extends AppWidgetProvider{
 	
 
 	@Override
+	public void onDeleted(Context context, int[] appWidgetIds) {
+		// TODO Auto-generated method stub
+		super.onDeleted(context, appWidgetIds);
+		if((Player.mp == null) || Player.mp.isPlaying()){
+			Player.stop();
+		}
+		if(timer != null)
+			timer.cancel();
+	}
+
+
+
+	@Override
 	public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
 		super.onUpdate(context, appWidgetManager, appWidgetIds);
+
 		
 		remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget_main);
 		thisWidget = new ComponentName(context, Widget_main.class);
@@ -93,11 +110,23 @@ public class Widget_main extends AppWidgetProvider{
 				});				
 			}		
 		};
-		Timer timer = new Timer();
+		timer = new Timer();
 		timer.schedule(infoTask, 0, 10000);
 		
-		
 	}
+
+
+
+	@Override
+	public void onEnabled(Context context) {
+		// TODO Auto-generated method stub
+		Toast.makeText(context, "Aplikacja RadioEquestria jest darmowa, jednak ³¹cz¹c siê za pomoc¹ sieci, mo¿e pobieraæ op³aty wed³ug taryfy operatora. Aby unikn¹æ wydatków, zalecamy ³¹czyæ siê poprzez WiFi.", Toast.LENGTH_LONG).show();
+
+		super.onEnabled(context);
+	}
+
+
+
 
 	
 	
