@@ -9,22 +9,24 @@ public class CurrentInfo {
 	public static String song = "";
 	public static boolean changed = true;
 	public static boolean connected = false;
-	
-	public static synchronized void set(String s, String p, String a, String so){
-		if((!s.equals(status)) || (!p.equals(prezenter)) || (!a.equals(audycja)) || (!so.equals(song))){
+
+	public static synchronized void set(String s, String p, String a, String so) {
+		if ((!s.equals(status)) || (!p.equals(prezenter))
+				|| (!a.equals(audycja)) || (!so.equals(song))) {
 			Log.i("Info", "ZMIANA" + s + ":" + status);
 			status = s;
 			prezenter = p;
 			audycja = a;
 			song = so;
 			changed = true;
-			
-		}else{
+
+		} else {
 			changed = false;
 			Log.i("Info", "BEZ ZMIAN!");
 		}
 	}
-	public static boolean isChanged(){
+
+	public static boolean isChanged() {
 		return changed;
 	}
 }
