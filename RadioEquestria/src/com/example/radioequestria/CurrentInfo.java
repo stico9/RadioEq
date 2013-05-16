@@ -7,7 +7,7 @@ public class CurrentInfo {
 	public static String prezenter = "";
 	public static String audycja = "";
 	public static String song = "";
-	public static boolean changed = false;
+	public static boolean changed = true;
 	public static boolean connected = false;
 	
 	public static synchronized void set(String s, String p, String a, String so){

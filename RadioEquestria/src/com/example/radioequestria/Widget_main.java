@@ -22,6 +22,7 @@ public class Widget_main extends AppWidgetProvider{
 	ComponentName thisWidget;
 
 	Timer timer;
+	TimerTask infoTask;
 	final MediaPlayer mp = null;
 	static boolean playing = false;
 	public static String PLAY_ACTION = "com.example.radioequestria.PLAY";
@@ -69,14 +70,35 @@ public class Widget_main extends AppWidgetProvider{
 	
 
 	@Override
-	public void onDeleted(Context context, int[] appWidgetIds) {
+	public void onDisabled(Context context) {
 		// TODO Auto-generated method stub
-		super.onDeleted(context, appWidgetIds);
 		if((Player.mp == null) || Player.mp.isPlaying()){
 			Player.stop();
 		}
 		if(timer != null)
 			timer.cancel();
+		if(infoTask != null)
+			infoTask.cancel();
+		android.os.Process.killProcess(android.os.Process.myPid());
+
+		super.onDisabled(context);
+
+	}
+
+
+
+	@Override
+	public void onDeleted(Context context, int[] appWidgetIds) {
+		if((Player.mp == null) || Player.mp.isPlaying()){
+			Player.stop();
+		}
+		if(timer != null)
+			timer.cancel();
+		if(infoTask != null)
+			infoTask.cancel();
+		// TODO Auto-generated method stub
+		super.onDeleted(context, appWidgetIds);
+		
 	}
 
 
@@ -97,7 +119,7 @@ public class Widget_main extends AppWidgetProvider{
 		
 		final Context kontekst = context;
 		final Handler handler = new Handler();
-		TimerTask infoTask = new TimerTask(){
+		infoTask = new TimerTask(){
 
 			@Override
 			public void run() {

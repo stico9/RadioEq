@@ -78,7 +78,7 @@
     		    android:focusableInTouchMode="true"
     		    android:marqueeRepeatLimit="marquee_forever"
     		    android:singleLine="true"
-    		    android:text=""
+    		    android:text="Brak Połączenia"
     		    android:textColor="#FFFFFF"
     		    android:textSize="14sp"
     		    android:textStyle="bold" />
